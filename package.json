@@ -1,7 +1,7 @@
 {
   "name": "sdc23",
   "version": "1.0.0",
-  "description": "HackReactor SDC23 Project Product Repo",
+  "description": "HackReactor SDC23 Project",
   "main": "webpack.config.js",
   "scripts": {
     "server-dev": "npx nodemon --watch server server/index.js",
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Flamin-Hot-Cheetos-SDC/Products"
+    "url": "git+https://github.com/Flamin-Hot-Cheetos-SDC/Main-SDC-Repo"
   },
-  "author": "Patrick Kelly",
+  "author": "Alex Libacova, Patrick Kelly, Sandy Chu",
   "bugs": {
-    "url": "https://github.com/Flamin-Hot-Cheetos-SDC/Products/issues"
+    "url": "https://github.com/Flamin-Hot-Cheetos-SDC/Main-SDC-Repo/issues"
   },
   "rules": {
     "react/jsx-filename-extension": [
@@ -30,7 +30,7 @@
     "react/prop-types": 0
   },
   "license": "ISC",
-  "homepage" : "https://github.com/Flamin-Hot-Cheetos/Products#readme",
+  "homepage" : "https://github.com/Flamin-Hot-Cheetos/Main-SDC-Repo#readme",
   "dependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
