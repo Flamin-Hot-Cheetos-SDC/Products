@@ -6,14 +6,15 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/');
 
   const skusSchema = new mongoose.Schema({
-    styleId: Number,
-    skuNumber: Number,
-    quantity: Number,
+    id: Number,
+    style_id: Number,
     size: String,
+    quantity: Number,
   });
 
   const stylesSchema = new mongoose.Schema({
-    productId: Number,
+    id: Number,
+    product_id: Number,
     name: String,
     sale_price: Number,
     original_price: Number,
@@ -26,6 +27,7 @@ async function main() {
   });
 
   const productSchema = new mongoose.Schema({
+    id: Number,
     name: String,
     slogan: String,
     description: String,
@@ -34,31 +36,25 @@ async function main() {
   });
 
   const photoSchema = new mongoose.Schema({
-    styleId: Number,
+    style_id: Number,
     url: String,
     thumbnail_url: String,
   });
 
-  const cartSchema = new mongoose.Schema({
-    user_session: Number,
-    product_id: Number,
-    active: Number,
-  });
-
   const featureSchema = new mongoose.Schema({
+    id: Number,
     product_id: Number,
     feature: String,
     value: String,
   });
 
   // models
-  const Sku = mongoose.model('Skus', skusSchema);
-  const Styles = mongoose.model('Styles', stylesSchema);
-  const Related = mongoose.model('Related', relatedSchema);
-  const Product = mongoose.model('Product', productSchema);
-  const Photo = mongoose.model('Photo', photoSchema);
-  const Cart = mongoose.model('Cart', cartSchema);
-  const Feature = mongoose.model('Feature', featureSchema);
+  const Sku = mongoose.model('Skus', skusSchema); // done
+  const Styles = mongoose.model('Styles', stylesSchema); // done
+  const Related = mongoose.model('Related', relatedSchema); // parse to convert rows into an array
+  const Product = mongoose.model('Product', productSchema); // done
+  const Photo = mongoose.model('Photo', photoSchema); // need to implement fix (waiting on lecture)
+  const Feature = mongoose.model('Feature', featureSchema); // done
 }
 
 main().catch((err) => console.log(err));

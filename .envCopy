@@ -12,4 +12,4 @@ DB_USER="root"
 DB_PASS=""
 
 # DB to create via sql
-DB_NAME="TBD"
+DB_NAME="products"
