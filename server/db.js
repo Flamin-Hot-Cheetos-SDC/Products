@@ -36,6 +36,7 @@ async function main() {
   });
 
   const photoSchema = new mongoose.Schema({
+    id: Number,
     style_id: Number,
     url: String,
     thumbnail_url: String,
