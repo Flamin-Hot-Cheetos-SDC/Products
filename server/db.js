@@ -50,12 +50,12 @@ async function main() {
   });
 
   // models
-  const Sku = mongoose.model('Skus', skusSchema); // done
-  const Styles = mongoose.model('Styles', stylesSchema); // done
-  const Related = mongoose.model('Related', relatedSchema); // parse to convert rows into an array
-  const Product = mongoose.model('Product', productSchema); // done
-  const Photo = mongoose.model('Photo', photoSchema); // need to implement fix (waiting on lecture)
-  const Feature = mongoose.model('Feature', featureSchema); // done
+  const Sku = mongoose.model('Skus', skusSchema);
+  const Styles = mongoose.model('Styles', stylesSchema);
+  const Related = mongoose.model('Related', relatedSchema);
+  const Product = mongoose.model('Product', productSchema);
+  const Photo = mongoose.model('Photo', photoSchema);
+  const Feature = mongoose.model('Feature', featureSchema);
 }
 
 main().catch((err) => console.log(err));
