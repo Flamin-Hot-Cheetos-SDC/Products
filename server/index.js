@@ -1,50 +1,80 @@
 require('dotenv').config();
 const express = require('express');
-const path = require("path");
+
 const app = express();
-const axios = require('axios');
-// const db = require('./db.js');
-const db = require('./db.js');
-// Serves up all static and generated assets in ../client/dist.
-// app.use(express.static(path.join(__dirname, "../client/dist")));
+const db = require('./db');
+
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 
-// return all documents
+// TODO figured out how to handle load size (route and query correct but response size too large)
 app.get('/products', (req, res) => {
-  res.end('success');
-  // db.returnAll()
-  //   .then((documents)=> {
-  //     var j = JSON.stringify(documents);
-  //     res.end(j);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  db.getProducts()
+    .then((products) => {
+      const r = JSON.stringify(products);
+      res.end(r);
+    })
+    .catch((err) => {
+      console.log('unable to process request, with error: ', err);
+    });
 });
 
+// TODO
+app.get('/products/:productId/styles', (req, res) => {
+  db.getRelated(req.params.productId)
+    .then((relatedProducts) => {
+      const r = JSON.stringify(relatedProducts[0].relatedProduct);
+      res.end(r);
+    })
+    .catch((err) => {
+      console.log('unable to process request, with error: ', err);
+    });
+});
+
+app.get('/products/:productId', (req, res) => {
+  db.getProductInfo(req.params.productId)
+    .then((relatedProducts) => {
+      const featuresCombined = [];
+      relatedProducts.forEach((product) => {
+        featuresCombined.push({
+          feature: product.feature,
+          value: product.value,
+        });
+      });
+      db.getSingleProduct(req.params.productId)
+        .then((productInfo) => {
+          console.log('INFO ', productInfo)
+          const responseInfo = {
+            id: productInfo[0].id,
+            name: productInfo[0].name,
+            slogan: productInfo[0].slogan,
+            description: productInfo[0].description,
+            category: productInfo[0].category,
+            default_price: productInfo[0].default_price,
+            features: featuresCombined,
+          };
+          const r = JSON.stringify(responseInfo);
+          res.end(r);
+        })
+        .catch((err) => {
+          console.log('unable to get single product: ', err);
+        });
+    })
+    .catch((err) => {
+      console.log('unable to process request, with error: ', err);
+    });
+});
+
+app.get('/products/:productId/related', (req, res) => {
+  db.getRelated(req.params.productId)
+    .then((relatedProducts) => {
+      const r = JSON.stringify(relatedProducts[0].relatedProduct);
+      res.end(r);
+    })
+    .catch((err) => {
+      console.log('unable to process request, with error: ', err);
+    });
+});
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
-
-
-
-
-
-
-
-
-// app.post('/words', (req, res)=> {
-  // })
-
-  // app.delete('/words', (req, res) => {
-  //   var word = req.body.word;
-  //   db.delete(word)
-  //   res.end('deleted');
-  // })
-
-  // app.put('/words', (req, res) => {
-  //   var currentWord = req.body.current;
-  //   var newWord = req.body.newWord;
-  //   db.edit(currentWord, newWord);
-  //   res.send(req.body);
-  // })
