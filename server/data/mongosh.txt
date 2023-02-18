@@ -1,0 +1,9 @@
+Scripts to support data manipulation
+
+Goal: delete a specific field from every document in the collection
+[sample collection name - 'photos', field to delete - 'delete']
+
+db.photos.updateMany(
+  {},
+  { $unset: { delete: "" } }
+)
