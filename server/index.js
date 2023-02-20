@@ -19,6 +19,19 @@ app.get('/products', (req, res) => {
     });
 });
 
+// test endpoint for single product collection
+app.get('/products/single/:productId', (req, res) => {
+  db.getSingleProduct(req.params.productId)
+    .then((productInfo) => {
+      console.log('PRODUCT ', productInfo);
+      const r = JSON.stringify(productInfo);
+      res.end(r);
+    })
+    .catch((err) => {
+      console.log('unable to process request, with error: ', err);
+    });
+});
+
 // TODO
 app.get('/products/:productId/styles', (req, res) => {
   db.getRelated(req.params.productId)
@@ -43,7 +56,6 @@ app.get('/products/:productId', (req, res) => {
       });
       db.getSingleProduct(req.params.productId)
         .then((productInfo) => {
-          console.log('INFO ', productInfo)
           const responseInfo = {
             id: productInfo[0].id,
             name: productInfo[0].name,
