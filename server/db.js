@@ -25,7 +25,7 @@ const relatedSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  id: Number,
+  product_id: Number,
   name: String,
   slogan: String,
   description: String,
@@ -60,8 +60,10 @@ module.exports = {
   getRelated: (id) => Related.find({ current_product_id: id }),
   getProductInfo: (id) => {
     const features = Feature.find({ product_id: id });
-    // console.log('FEATURES ', features[1]);
     return features;
   },
-  getSingleProduct: (prodId) => Product.find({ id: prodId }),
+  getSingleProduct: (prodId) => {
+    console.log('prodId ', prodId);
+    return Product.find({ product_id: prodId });
+  },
 };
